@@ -1,0 +1,22 @@
+{
+    "customer_name": "Realta",
+    "radial_build": [2,0.15,0.01,1],
+    "nbi_radius": 0.4,
+    "reactor_height": 92,
+    "solenoid_coil_r": 4,
+    "solenoid_coil_z": [-46, -41.81818182, -37.63636364, -33.45454545, -29.27272727,
+    -25.09090909, -20.90909091, -16.72727273, -12.54545455, -8.36363636,
+     -4.18181818, 0, 4.18181818, 8.36363636, 12.54545455,
+     16.72727273, 20.90909091, 25.09090909, 29.27272727, 33.45454545,
+     37.63636364, 41.81818182, 46],
+    "solenoid_coil_dr": 1,
+    "solenoid_coil_dz": 1,
+    "end_cell_radius": 1,
+    "end_cell_height": 8,
+    "end_cell_coil_r": 2.6,
+    "end_cell_coil_z": [-54, -48, 48, 54],
+    "end_cell_coil_dr": 1.5,
+    "end_cell_coil_dz": 3,
+    "expander_coil": false,
+    "nbi_cutter_height": 51.5
+}
