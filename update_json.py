@@ -31,6 +31,7 @@ def save_json(settings: Dict[str, Any], output_dir: str, filename: str) -> None:
 
 
 def create_updated_json(
+        updated_coil_shielding: float,
         coil_path: str,
         settings_path: str,
         output_filename: str = 'settings',
@@ -47,6 +48,8 @@ def create_updated_json(
     z_vals = data[:, 8]
     dr_vals = data[:, 4]
     dz_vals = data[:, 5]
+    radial_build = settings['radial_build']
+    radial_build.append(updated_coil_shielding)
 
     settings['solenoid_coil_r'] = r_vals.tolist()
     settings['solenoid_coil_z'] = z_vals.tolist()

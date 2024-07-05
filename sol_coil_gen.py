@@ -123,11 +123,12 @@ max_c_t = 415.0
 # Ensure measurements in metres
 t_dr = 13.34 * (10**-3)
 t_dz = 13.34 * (10**-3)
-radius = 7
+radius = 8
 
 # FOR HTS TAPE COILS
 # Assuming critical current density od 1000A/mm2 for now ( will need updating to depend on field and temperature in future)
-max_c_t = 200.0
+# Increase c_t if clipping
+max_c_t = 5
 t_dr = 1.0 * (10**-3)
 t_dz = 1.0 * (10**-3)
 
@@ -143,10 +144,9 @@ coil_info = gen_so_coil_array(
 coil_info = np.round(coil_info, 4)
 
 # Save coil info to CSV
-
-
-for i in range(2, 21):
-    coil_n = i
+n_coils = [2, 5, 10, 20]
+shielding_thicknesses = [0.2, 0.4, 0.6]
+for coil_n in n_coils:
     coil_info = gen_so_coil_array(
         coil_n, B_targ, radius, sol_l, max_c_t, t_dr, t_dz)
 
@@ -155,7 +155,6 @@ for i in range(2, 21):
     # Before csv save , round each number to 4 dp
     # Round each number to 4 decimal places
     coil_info = np.round(coil_info, 4)
-
     # Save coil info to CSV
     with open('coil_info.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
@@ -163,7 +162,9 @@ for i in range(2, 21):
                         "Bc", "drdz", "z", "hoop_stress", "coil_vol", "coil_num"])
         writer.writerows(coil_info)
 
-    filename = f'coil_{i}'
-    create_updated_json(
-        'coil_info.csv', 'novatron.json', output_filename=filename, output_dir='../Novatron_cR'
-    )
+    for thickness in shielding_thicknesses:
+        shielding_thickness = thickness
+        filename = f'coil_{coil_n}_shielding_{shielding_thickness}'
+        create_updated_json(
+            shielding_thickness, 'coil_info.csv', '../input_json/novatron.json', output_filename=filename, output_dir='../shielding_thickness'
+        )
