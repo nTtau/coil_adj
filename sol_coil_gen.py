@@ -114,38 +114,29 @@ def pancake_coil_vol(coil_data):
 
 # INPUTS
 samp_points = 1000
-sol_l = 20
+sol_l = 49.0729
 B_targ = 3.0
 
+radius = 7.2875
+max_c_t = 34.414
+coil_n = 34
 
-# Use 400 AWG Cu for now
-max_c_t = 415.0
-# Ensure measurements in metres
-t_dr = 13.34 * (10**-3)
-t_dz = 13.34 * (10**-3)
-radius = 8
-
+t_dr = 1.0 * (10**-3)
+t_dz = 1.0 * (10**-3)
+# coil_n = coil_n * (sol_l/10)
+# coil_n = int(coil_n)
+# coil_n = 23
+print(coil_n)
 # FOR HTS TAPE COILS
 # Assuming critical current density od 1000A/mm2 for now ( will need updating to depend on field and temperature in future)
 # Increase c_t if clipping
-max_c_t = 5
-t_dr = 1.0 * (10**-3)
-t_dz = 1.0 * (10**-3)
+
 
 # NOTE FOR DOM, COIL INFO IS THE ARRAY YOU NEED TO FEED BACK IN
-coil_n = 20
-coil_info = gen_so_coil_array(
-    coil_n, B_targ, radius, sol_l, max_c_t, t_dr, t_dz)
-
-# Take result of coil_info and save to csv with headers
-# Save coil info to csv
-# Before csv save , round each number to 4 dp
-# Round each number to 4 decimal places
-coil_info = np.round(coil_info, 4)
 
 # Save coil info to CSV
-n_coils = [2, 5, 10, 20]
-shielding_thicknesses = [0.2, 0.4, 0.6]
+n_coils = [coil_n]
+shielding_thicknesses = [0.2]
 for coil_n in n_coils:
     coil_info = gen_so_coil_array(
         coil_n, B_targ, radius, sol_l, max_c_t, t_dr, t_dz)
@@ -164,7 +155,7 @@ for coil_n in n_coils:
 
     for thickness in shielding_thicknesses:
         shielding_thickness = thickness
-        filename = f'coil_{coil_n}_shielding_{shielding_thickness}'
+        filename = "physics"
         create_updated_json(
-            shielding_thickness, 'coil_info.csv', '../input_json/novatron.json', output_filename=filename, output_dir='../shielding_thickness'
+            shielding_thickness, 'coil_info.csv', 'physics.json', output_filename=filename, output_dir='out/'
         )
