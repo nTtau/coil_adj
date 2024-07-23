@@ -1,1 +1,4 @@
 output/*.json
+
+# Add in files in pycache
+__pycache__/
